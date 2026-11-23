@@ -27,6 +27,21 @@ const THUMB_PATTERNS = [
   </svg>,
 ];
 
+const SERVICE_PHOTOS: Record<string, string> = {
+  "Signature Facial":
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/facial.jpg",
+  "Haircut & Styling":
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/haircut.webp",
+  Manicure:
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/manicure.jpg",
+  Pedicure:
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/pedicure.webp",
+  "Bridal Trial Makeup":
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/bridal.jpg",
+  "Hair Spa":
+    "https://rltxedmwdojuovlblkea.supabase.co/storage/v1/object/public/site-assets/booking/hairspa.jpg",
+};
+
 export default function ServicesSection({ services }: { services: Service[] }) {
   const [preselected, setPreselected] = useState<{ serviceId: string; nonce: number } | null>(null);
 
@@ -42,8 +57,15 @@ export default function ServicesSection({ services }: { services: Service[] }) {
           <Reveal key={s.id}>
             <article className="card" style={{ height: "100%" }}>
               <div className="service-thumb">
-                {THUMB_PATTERNS[i % THUMB_PATTERNS.length]}
-                <span className="thumb-initial">{s.name.charAt(0)}</span>
+                {SERVICE_PHOTOS[s.name] ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={SERVICE_PHOTOS[s.name]} alt={s.name} loading="lazy" />
+                ) : (
+                  <>
+                    {THUMB_PATTERNS[i % THUMB_PATTERNS.length]}
+                    <span className="thumb-initial">{s.name.charAt(0)}</span>
+                  </>
+                )}
               </div>
               <h3>{s.name}</h3>
               <div className="service-meta">
